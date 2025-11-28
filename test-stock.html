@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRODALIM - Gestion des Stocks</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand"><h1 class="brand-logo-small">PRODALIM</h1></div>
+        <div class="navbar-menu">
+            <a href="index.html#warehouse-dashboard" class="nav-link">Préparations</a>
+            <a href="test-stock.html" class="nav-link active">Gestion stocks</a>
+            <a href="index.html#traceability" class="nav-link">Traçabilité</a>
+        </div>
+        <div class="navbar-user">
+            <span class="user-name">Marc Dubois</span>
+            <span class="user-role">Chef magasinier</span>
+            <button class="btn-logout" onclick="window.location.href='index.html'">Déconnexion</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <div>
+                <h1>Tableau de Bord Gestion des Stocks</h1>
+                <p style="color: var(--gray-600); margin-top: 0.5rem;">Système de gestion optimisé avec alertes automatiques en temps réel</p>
+            </div>
+        </div>
+
+        <!-- Period Selector -->
+        <div class="period-selector-card">
+            <label for="period-select">Période d'activité :</label>
+            <select id="period-select">
+                <option value="creuse" selected>Période Creuse (Janvier - Octobre)</option>
+                <option value="haute">Période Haute (Novembre - Décembre)</option>
+            </select>
+        </div>
+
+        <!-- Stats Dashboard -->
+        <div class="stock-stats-grid">
+            <div class="stock-stat-card critical">
+                <div class="stock-stat-label">Alertes Critiques</div>
+                <div class="stock-stat-value">3</div>
+            </div>
+            <div class="stock-stat-card warning">
+                <div class="stock-stat-label">Alertes Attention</div>
+                <div class="stock-stat-value">5</div>
+            </div>
+            <div class="stock-stat-card ok">
+                <div class="stock-stat-label">Stocks Normaux</div>
+                <div class="stock-stat-value">32</div>
+            </div>
+            <div class="stock-stat-card info">
+                <div class="stock-stat-label">Taux de Service</div>
+                <div class="stock-stat-value">92.5%</div>
+            </div>
+        </div>
+
+        <!-- Detailed Stock Table -->
+        <div class="card">
+            <div class="table-container">
+                <table class="stock-detail-table">
+                    <thead>
+                        <tr>
+                            <th>Référence</th>
+                            <th>Produit</th>
+                            <th class="text-center">Statut</th>
+                            <th class="text-right">Stock Actuel</th>
+                            <th class="text-right">Stock Sécurité</th>
+                            <th class="text-right">Point Commande</th>
+                            <th>Niveau Stock</th>
+                            <th>Action Suggérée</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="ref-code">CP-002</span></td>
+                            <td>
+                                <strong>Coffret Prestige Signature Truffes & Champagne</strong>
+                                <div class="stock-small-text">
+                                    Délai livraison: 2j | Consommation moy.: 127 u/jour
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <span class="status-badge status-critique">CRITIQUE</span>
+                            </td>
+                            <td class="text-right"><strong>380</strong> unités</td>
+                            <td class="text-right">380</td>
+                            <td class="text-right">650</td>
+                            <td>
+                                <div class="stock-progress-bar">
+                                    <div class="stock-progress-fill stock-progress-critical" style="width: 58%"></div>
+                                    <div class="stock-progress-text">58%</div>
+                                </div>
+                            </td>
+                            <td>
+                                <button class="btn-stock-action btn-stock-critique">
+                                    Commander 1200 unités
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="alert-row alert-row-critical">
+                            <td colspan="8">
+                                <div class="alert-row-text">🚨 ALERTE CRITIQUE : Stock sous le seuil de sécurité. Commande urgente requise.</div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><span class="ref-code">MC-007</span></td>
+                            <td>
+                                <strong>Mini Coffret Thé & Biscuits</strong>
+                                <div class="stock-small-text">
+                                    Délai livraison: 2j | Consommation moy.: 89 u/jour
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <span class="status-badge status-attention">ATTENTION</span>
+                            </td>
+                            <td class="text-right"><strong>520</strong> unités</td>
+                            <td class="text-right">320</td>
+                            <td class="text-right">550</td>
+                            <td>
+                                <div class="stock-progress-bar">
+                                    <div class="stock-progress-fill stock-progress-warning" style="width: 95%"></div>
+                                    <div class="stock-progress-text">95%</div>
+                                </div>
+                            </td>
+                            <td>
+                                <button class="btn-stock-action btn-stock-attention">
+                                    Commander 1000 unités
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="alert-row">
+                            <td colspan="8">
+                                <div class="alert-row-text">⚠ ATTENTION : Approche du stock de sécurité. Prévoir réapprovisionnement.</div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><span class="ref-code">EB-003</span></td>
+                            <td>
+                                <strong>Sélection de Tartinables Apéritifs</strong>
+                                <div class="stock-small-text">
+                                    Délai livraison: 7j | Consommation moy.: 56 u/jour
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <span class="status-badge status-ok">NORMAL</span>
+                            </td>
+                            <td class="text-right"><strong>1800</strong> unités</td>
+                            <td class="text-right">400</td>
+                            <td class="text-right">700</td>
+                            <td>
+                                <div class="stock-progress-bar">
+                                    <div class="stock-progress-fill stock-progress-ok" style="width: 100%"></div>
+                                    <div class="stock-progress-text">100%</div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="no-action-text">Aucune action requise</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Footer Note -->
+        <div class="stock-footer-note">
+            <strong>Note :</strong> Ce système automatisé génère les alertes en temps réel selon les paramètres définis.
+            Les règles de réapprovisionnement s'adaptent automatiquement à la période d'activité (creuse/haute saison).
+            Les stocks sont mis à jour instantanément lors de chaque préparation de commande.
+        </div>
+    </div>
+</body>
+</html>

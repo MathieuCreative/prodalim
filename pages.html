@@ -1,0 +1,381 @@
+<!-- This file contains all additional pages HTML content -->
+<!-- To be injected into the main index.html -->
+
+<!-- CATALOG PAGE -->
+<div id="catalog-page-content">
+    <nav class="navbar">
+        <div class="navbar-brand"><h1 class="brand-logo-small">PRODALIM</h1></div>
+        <div class="navbar-menu">
+            <a href="#" class="nav-link" data-page="dashboard">Tableau de bord</a>
+            <a href="#" class="nav-link active" data-page="catalog">Catalogue</a>
+            <a href="#" class="nav-link" data-page="create-order">Nouvelle commande</a>
+        </div>
+        <div class="navbar-user">
+            <span class="user-name" id="current-user-name">Sophie Martin</span>
+            <span class="user-role" id="current-user-role">Assistante commerciale</span>
+            <button class="btn-logout" onclick="logout()">Déconnexion</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <div>
+                <h1>Catalogue produits</h1>
+                <p style="color: var(--gray-600); margin-top: 0.5rem;">Explorez nos 40+ références premium pour vos cadeaux d'affaires</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary">
+                    <span class="icon">⬇</span> Exporter le catalogue
+                </button>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="card" style="margin-bottom: 1.5rem;">
+            <div class="catalog-filters">
+                <div class="filter-group">
+                    <label>Catégorie</label>
+                    <select id="category-filter" onchange="filterCatalog()">
+                        <option value="">Toutes les catégories</option>
+                        <option value="prestige">Coffrets Prestige</option>
+                        <option value="mini">Mini Coffrets</option>
+                        <option value="panier">Paniers Cadeaux</option>
+                        <option value="champagne">Champagnes</option>
+                        <option value="vin">Coffrets Vins</option>
+                        <option value="the">Thés Premium</option>
+                        <option value="epicerie">Épicerie Fine</option>
+                        <option value="foiegras">Foie Gras</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Disponibilité</label>
+                    <select id="availability-filter" onchange="filterCatalog()">
+                        <option value="">Toutes</option>
+                        <option value="available">Disponible</option>
+                        <option value="low_stock">Stock faible</option>
+                        <option value="reserved">Stock réservé</option>
+                        <option value="out_of_stock">Rupture</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Budget max (HT)</label>
+                    <select id="price-filter" onchange="filterCatalog()">
+                        <option value="">Tous</option>
+                        <option value="50">Jusqu'à 50€</option>
+                        <option value="100">Jusqu'à 100€</option>
+                        <option value="150">Jusqu'à 150€</option>
+                        <option value="200">Jusqu'à 200€</option>
+                        <option value="999">Plus de 200€</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Recherche</label>
+                    <input type="text" id="search-filter" placeholder="Référence ou nom..." oninput="filterCatalog()" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="product-grid" class="product-grid">
+            <!-- Products will be dynamically inserted here -->
+        </div>
+    </div>
+</div>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div id="product-detail-modal-content">
+    <div class="modal-backdrop" onclick="closeProductDetail()"></div>
+    <div class="modal-container">
+        <div class="modal-header">
+            <h2 id="modal-product-name">Nom du produit</h2>
+            <button class="modal-close" onclick="closeProductDetail()">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="product-detail-grid">
+                <div class="product-detail-image">
+                    <img id="modal-product-image" src="" alt="Product" />
+                    <div id="modal-product-tags" class="product-tags"></div>
+                </div>
+                <div class="product-detail-info">
+                    <div class="product-ref" id="modal-product-ref">REF</div>
+                    <div class="product-price" id="modal-product-price">0,00 €</div>
+                    <p id="modal-product-description">Description</p>
+
+                    <div class="stock-info-detailed">
+                        <h3>Informations logistiques</h3>
+                        <div class="stock-detail-grid">
+                            <div class="stock-detail-item">
+                                <span class="stock-label">Stock physique</span>
+                                <span class="stock-value" id="modal-stock-physical">0</span>
+                            </div>
+                            <div class="stock-detail-item">
+                                <span class="stock-label">Quantités réservées</span>
+                                <span class="stock-value" id="modal-stock-reserved">0</span>
+                            </div>
+                            <div class="stock-detail-item">
+                                <span class="stock-label">Disponible</span>
+                                <span class="stock-value success" id="modal-stock-available">0</span>
+                            </div>
+                            <div class="stock-detail-item">
+                                <span class="stock-label">Stock de sécurité</span>
+                                <span class="stock-value" id="modal-stock-security">0</span>
+                            </div>
+                        </div>
+
+                        <div id="modal-incoming-orders" class="incoming-orders">
+                            <!-- Incoming orders will be displayed here -->
+                        </div>
+
+                        <div id="modal-dlc-info" class="dlc-info">
+                            <!-- DLC info if applicable -->
+                        </div>
+
+                        <div id="modal-availability-badge" class="availability-badge-large">
+                            <!-- Availability status -->
+                        </div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <div class="quantity-selector">
+                            <label>Quantité</label>
+                            <input type="number" id="modal-quantity" value="1" min="1" />
+                        </div>
+                        <button class="btn btn-primary btn-full" onclick="addToOrder()">
+                            Ajouter à la commande
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CREATE ORDER PAGE -->
+<div id="create-order-page-content">
+    <nav class="navbar">
+        <div class="navbar-brand"><h1 class="brand-logo-small">PRODALIM</h1></div>
+        <div class="navbar-menu">
+            <a href="#" class="nav-link" data-page="dashboard">Tableau de bord</a>
+            <a href="#" class="nav-link" data-page="catalog">Catalogue</a>
+            <a href="#" class="nav-link active" data-page="create-order">Nouvelle commande</a>
+        </div>
+        <div class="navbar-user">
+            <span class="user-name">Sophie Martin</span>
+            <span class="user-role">Assistante commerciale</span>
+            <button class="btn-logout" onclick="logout()">Déconnexion</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Nouvelle demande client</h1>
+            <div class="header-actions">
+                <button class="btn btn-secondary" onclick="navigateTo('dashboard')">Annuler</button>
+                <button class="btn btn-primary" onclick="sendOffer()">Envoyer l'offre au client</button>
+            </div>
+        </div>
+
+        <div class="order-creation-grid">
+            <!-- Client Info -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Informations client</h2>
+                </div>
+                <form id="client-info-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="client-company">Société *</label>
+                            <input type="text" id="client-company" placeholder="Nom de la société" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="client-contact">Contact *</label>
+                            <input type="text" id="client-contact" placeholder="Nom du contact" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="client-email">Email *</label>
+                            <input type="email" id="client-email" placeholder="contact@entreprise.fr" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="client-phone">Téléphone</label>
+                            <input type="tel" id="client-phone" placeholder="01 23 45 67 89" />
+                        </div>
+                        <div class="form-group">
+                            <label for="order-channel">Canal de commande *</label>
+                            <select id="order-channel" required>
+                                <option value="">Sélectionner...</option>
+                                <option value="telephone">Téléphone</option>
+                                <option value="email">Email</option>
+                                <option value="fax">Fax</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="delivery-date">Date de livraison souhaitée</label>
+                            <input type="date" id="delivery-date" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Order Items -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Produits sélectionnés</h2>
+                    <button class="btn btn-sm btn-primary" onclick="navigateTo('catalog')">
+                        <span class="icon">+</span> Ajouter des produits
+                    </button>
+                </div>
+                <div id="order-items-container">
+                    <div class="empty-state">
+                        <p>Aucun produit sélectionné</p>
+                        <p style="font-size: 0.875rem; color: var(--gray-500);">Parcourez le catalogue pour ajouter des produits à cette commande</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feasibility Summary -->
+            <div class="card" id="feasibility-card" style="display: none;">
+                <div class="card-header">
+                    <h2>Synthèse de faisabilité</h2>
+                </div>
+                <div id="feasibility-content">
+                    <!-- Will be populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="card order-summary-card">
+                <div class="card-header">
+                    <h2>Récapitulatif</h2>
+                </div>
+                <div class="order-summary">
+                    <div class="summary-line">
+                        <span>Total HT</span>
+                        <span class="summary-value" id="summary-total-ht">0,00 €</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>TVA (20%)</span>
+                        <span class="summary-value" id="summary-tva">0,00 €</span>
+                    </div>
+                    <div class="summary-line total">
+                        <span>Total TTC</span>
+                        <span class="summary-value" id="summary-total-ttc">0,00 €</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ORDER TRACKING PAGE -->
+<div id="order-tracking-page-content">
+    <nav class="navbar">
+        <div class="navbar-brand"><h1 class="brand-logo-small">PRODALIM</h1></div>
+        <div class="navbar-menu">
+            <a href="#" class="nav-link" data-page="dashboard">Tableau de bord</a>
+            <a href="#" class="nav-link" data-page="catalog">Catalogue</a>
+            <a href="#" class="nav-link active" data-page="order-tracking">Suivi commande</a>
+        </div>
+        <div class="navbar-user">
+            <span class="user-name" id="tracking-user-name">Utilisateur</span>
+            <span class="user-role" id="tracking-user-role">Rôle</span>
+            <button class="btn-logout" onclick="logout()">Déconnexion</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <div>
+                <h1>Suivi de commande <span id="order-number" style="color: var(--primary);">CMD-2025-XXXX</span></h1>
+                <p style="color: var(--gray-600); margin-top: 0.5rem;">Client: <span id="order-client-name">Nom du client</span></p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" onclick="navigateTo('dashboard')">Retour</button>
+                <button class="btn btn-primary">
+                    <span class="icon">📄</span> Télécharger la facture
+                </button>
+            </div>
+        </div>
+
+        <!-- Current Status -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Statut actuel</h2>
+            </div>
+            <div class="current-status">
+                <div id="current-status-badge" class="status-badge-large">
+                    <!-- Will be populated -->
+                </div>
+                <div id="current-status-message" class="status-message">
+                    <!-- Will be populated -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Historique et timeline</h2>
+            </div>
+            <div id="order-timeline" class="timeline">
+                <!-- Timeline items will be added here -->
+            </div>
+        </div>
+
+        <!-- Order Details -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Détails de la commande</h2>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Référence</th>
+                            <th>Produit</th>
+                            <th>Quantité</th>
+                            <th>Prix unitaire HT</th>
+                            <th>Total HT</th>
+                        </tr>
+                    </thead>
+                    <tbody id="order-details-items">
+                        <!-- Will be populated -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" style="text-align: right; font-weight: 600;">Total HT</td>
+                            <td><strong id="order-total-ht">0,00 €</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <!-- Internal Communication -->
+        <div class="card" id="internal-comm-card">
+            <div class="card-header">
+                <h2>Communication interne</h2>
+                <span style="font-size: 0.875rem; color: var(--gray-500);">(Non visible pour le client)</span>
+            </div>
+            <div class="comments-thread">
+                <div class="comment-item">
+                    <div class="comment-header">
+                        <strong>Sophie Martin</strong>
+                        <span class="comment-date">27/11/2025 15:30</span>
+                    </div>
+                    <div class="comment-body">
+                        Client très pressé, livraison impérative avant le 5 décembre pour un événement corporate.
+                    </div>
+                </div>
+                <div class="comment-item">
+                    <div class="comment-header">
+                        <strong>Marc Dubois</strong>
+                        <span class="comment-date">27/11/2025 16:00</span>
+                    </div>
+                    <div class="comment-body">
+                        OK, commande priorisée. Préparation prévue pour demain matin.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

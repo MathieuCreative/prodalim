@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRODALIM - Coffrets Cadeaux Premium B2B</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Login Page -->
+        <div id="login-page" class="page active">
+            <div class="login-container">
+                <div class="login-left">
+                    <div class="login-branding">
+                        <h1 class="brand-logo">PRODALIM</h1>
+                        <p class="brand-tagline">L'excellence au service de vos relations d'affaires</p>
+                    </div>
+                    <div class="login-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">100+</div>
+                            <div class="stat-label">Références premium</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">48h</div>
+                            <div class="stat-label">Livraison nationale</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Personnalisable</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="login-right">
+                    <div class="login-form-container">
+                        <h2>Connexion</h2>
+                        <p class="login-subtitle">Coffrets cadeaux de fin d'année premium pour vos clients et collaborateurs</p>
+                        <form id="login-form" class="login-form">
+                            <div class="form-group">
+                                <label for="email">Email professionnel</label>
+                                <input type="email" id="email" placeholder="votre.nom@entreprise.fr" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Mot de passe</label>
+                                <input type="password" id="password" placeholder="••••••••" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="user-type">Profil</label>
+                                <select id="user-type" required>
+                                    <option value="">Sélectionner votre profil</option>
+                                    <option value="commercial">Assistante commerciale</option>
+                                    <option value="client">Client B2B</option>
+                                    <option value="magasinier">Chef magasinier</option>
+                                    <option value="admin">Assistante administrative</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-full">Se connecter</button>
+                        </form>
+                        <div class="login-footer">
+                            <a href="#" class="link-secondary">Mot de passe oublié ?</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Commercial Dashboard -->
+        <div id="commercial-dashboard" class="page">
+            <nav class="navbar">
+                <div class="navbar-brand">
+                    <h1 class="brand-logo-small">PRODALIM</h1>
+                </div>
+                <div class="navbar-menu">
+                    <a href="#" class="nav-link active" data-page="commercial-dashboard">Tableau de bord</a>
+                    <a href="#" class="nav-link" data-page="catalog">Catalogue</a>
+                    <a href="#" class="nav-link" data-page="create-order">Nouvelle commande</a>
+                </div>
+                <div class="navbar-user">
+                    <span class="user-name">Sophie Martin</span>
+                    <span class="user-role">Assistante commerciale</span>
+                    <button class="btn-logout" onclick="logout()">Déconnexion</button>
+                </div>
+            </nav>
+
+            <div class="container">
+                <div class="page-header">
+                    <h1>Tableau de bord commercial</h1>
+                    <div class="header-actions">
+                        <button class="btn btn-secondary" onclick="navigateTo('stock-management')" style="margin-right: 0.5rem;">
+                            <span class="icon">📊</span> Gestion des stocks
+                        </button>
+                        <button class="btn btn-primary" onclick="navigateTo('create-order')">
+                            <span class="icon">+</span> Nouvelle demande client
+                        </button>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Stats Cards -->
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-icon warning">⏱</div>
+                            <div class="stat-content">
+                                <div class="stat-value">12</div>
+                                <div class="stat-label">Demandes en attente</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon success">✓</div>
+                            <div class="stat-content">
+                                <div class="stat-value">28</div>
+                                <div class="stat-label">Commandes en cours</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon info">📦</div>
+                            <div class="stat-content">
+                                <div class="stat-value">8</div>
+                                <div class="stat-label">Prêtes à livrer</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon danger">⚠</div>
+                            <div class="stat-content">
+                                <div class="stat-value">3</div>
+                                <div class="stat-label">Alertes logistiques</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Requests -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Demandes clients récentes</h2>
+                            <a href="#" class="link-primary">Voir tout</a>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Client</th>
+                                        <th>Date</th>
+                                        <th>Canal</th>
+                                        <th>Articles</th>
+                                        <th>Montant HT</th>
+                                        <th>Statut</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Société Durand & Fils</strong></td>
+                                        <td>28/11/2025 09:30</td>
+                                        <td><span class="badge badge-purple">Téléphone</span></td>
+                                        <td>15 articles</td>
+                                        <td>2 450,00 €</td>
+                                        <td><span class="badge badge-warning">En étude</span></td>
+                                        <td><button class="btn btn-sm btn-secondary">Traiter</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Martin Conseil SARL</strong></td>
+                                        <td>28/11/2025 08:15</td>
+                                        <td><span class="badge badge-blue">Email</span></td>
+                                        <td>8 articles</td>
+                                        <td>1 890,00 €</td>
+                                        <td><span class="badge badge-info">Devis envoyé</span></td>
+                                        <td><button class="btn btn-sm btn-secondary">Voir</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Technologie Plus SA</strong></td>
+                                        <td>27/11/2025 16:45</td>
+                                        <td><span class="badge badge-gray">Fax</span></td>
+                                        <td>22 articles</td>
+                                        <td>3 680,00 €</td>
+                                        <td><span class="badge badge-warning">Validation stock</span></td>
+                                        <td><button class="btn btn-sm btn-secondary">Vérifier</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Groupe Bernard & Associés</strong></td>
+                                        <td>27/11/2025 14:20</td>
+                                        <td><span class="badge badge-blue">Email</span></td>
+                                        <td>35 articles</td>
+                                        <td>5 200,00 €</td>
+                                        <td><span class="badge badge-success">Stock réservé</span></td>
+                                        <td><button class="btn btn-sm btn-primary">Confirmer</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Immobilier Prestige</strong></td>
+                                        <td>27/11/2025 11:10</td>
+                                        <td><span class="badge badge-purple">Téléphone</span></td>
+                                        <td>12 articles</td>
+                                        <td>1 650,00 €</td>
+                                        <td><span class="badge badge-danger">Rupture partielle</span></td>
+                                        <td><button class="btn btn-sm btn-secondary">Proposer alternative</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Alerts Widget -->
+                    <div class="card alert-card">
+                        <div class="card-header">
+                            <h2>Alertes logistiques</h2>
+                        </div>
+                        <div class="alert-list">
+                            <div class="alert-item alert-warning">
+                                <div class="alert-icon">⚠</div>
+                                <div class="alert-content">
+                                    <strong>Pic d'activité détecté</strong>
+                                    <p>Volume de commandes +45% cette semaine - capacité à surveiller</p>
+                                </div>
+                            </div>
+                            <div class="alert-item alert-danger">
+                                <div class="alert-icon">🚨</div>
+                                <div class="alert-content">
+                                    <strong>Rupture critique : CP-002</strong>
+                                    <p>Coffret Prestige Signature - Stock épuisé - Réappro prévu 02/12</p>
+                                </div>
+                            </div>
+                            <div class="alert-item alert-info">
+                                <div class="alert-icon">📦</div>
+                                <div class="alert-content">
+                                    <strong>Réception fournisseur</strong>
+                                    <p>30 unités FG-004 attendues aujourd'hui 14h00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Orders Summary -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Commandes en cours par statut</h2>
+                        </div>
+                        <div class="order-status-grid">
+                            <div class="status-card">
+                                <div class="status-number">5</div>
+                                <div class="status-label">À traiter</div>
+                                <div class="status-bar">
+                                    <div class="status-bar-fill" style="width: 18%; background: var(--warning);"></div>
+                                </div>
+                            </div>
+                            <div class="status-card">
+                                <div class="status-number">7</div>
+                                <div class="status-label">Stock réservé</div>
+                                <div class="status-bar">
+                                    <div class="status-bar-fill" style="width: 25%; background: var(--info);"></div>
+                                </div>
+                            </div>
+                            <div class="status-card">
+                                <div class="status-number">10</div>
+                                <div class="status-label">En préparation</div>
+                                <div class="status-bar">
+                                    <div class="status-bar-fill" style="width: 36%; background: var(--primary);"></div>
+                                </div>
+                            </div>
+                            <div class="status-card">
+                                <div class="status-number">8</div>
+                                <div class="status-label">Prêtes à livrer</div>
+                                <div class="status-bar">
+                                    <div class="status-bar-fill" style="width: 29%; background: var(--success);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Client Dashboard (will be created later) -->
+        <div id="client-dashboard" class="page">
+            <!-- Client dashboard content -->
+        </div>
+
+        <!-- Warehouse Dashboard (will be created later) -->
+        <div id="warehouse-dashboard" class="page">
+            <!-- Warehouse dashboard content -->
+        </div>
+
+        <!-- Admin Dashboard (will be created later) -->
+        <div id="admin-dashboard" class="page">
+            <!-- Admin dashboard content -->
+        </div>
+
+        <!-- Catalog Page (will be created later) -->
+        <div id="catalog" class="page">
+            <!-- Catalog content -->
+        </div>
+
+        <!-- Product Detail Page (will be created later) -->
+        <div id="product-detail" class="page">
+            <!-- Product detail content -->
+        </div>
+
+        <!-- Create Order Page (will be created later) -->
+        <div id="create-order" class="page">
+            <!-- Create order content -->
+        </div>
+
+        <!-- Order Tracking Page (will be created later) -->
+        <div id="order-tracking" class="page">
+            <!-- Order tracking content -->
+        </div>
+
+        <!-- Stock Management Page (will be created later) -->
+        <div id="stock-management" class="page">
+            <!-- Stock management content -->
+        </div>
+
+        <!-- Traceability Page (will be created later) -->
+        <div id="traceability" class="page">
+            <!-- Traceability content -->
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
